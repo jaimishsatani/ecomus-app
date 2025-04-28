@@ -11,27 +11,6 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "continue": true
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "https://ecomus-api-sepia.vercel.app/api/$1",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
-    }
-  ],
   "env": {
     "REACT_APP_API_URL": "https://ecomus-api-sepia.vercel.app"
   },
@@ -56,8 +35,22 @@
   ],
   "rewrites": [
     {
+      "source": "/static/(.*)",
+      "destination": "/static/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "https://ecomus-api-sepia.vercel.app/api/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "cleanUrls": true
 }
+
